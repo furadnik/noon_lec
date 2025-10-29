@@ -1,12 +1,26 @@
 \documentclass[aspectratio=169]{beamer}
 
 % setup basic metainfo
-\title{Cooperative Game Theory \& Optimism Bias}
+\title{Reducing Optimism Bias in Incomplete Cooperative Games}
+\author[1]{Filip \'{U}radn\'{i}k\textsuperscript{1} \and David Sychrovský\textsuperscript{1} \and Jakub Černý\textsuperscript{2}\and Martin Černý\textsuperscript{1}}
+
+\institute{
+    \textsuperscript{1}Charles University, Prague\hfill \\
+    \textsuperscript{2}Columbia University, NY, USA\hfill \\
+
+\vspace{1em}
+{\tiny\color{gray}
+\texttt{uradnik@kam.mff.cuni.cz}
+\hspace{1em}\textbullet\hspace{1em}
+\texttt{furadnik.github.io}}
+}
+\date{October 30, 2025}
 
 \input{template}
 % \input{color}
 \input{beamer.tex}
 \input{english}
+\usepackage{appendixnumberbeamer}
 
 \usepackage[natbib=true,style=authoryear,backend=bibtex,useprefix=true]{biblatex}
 \addbibresource{bibliography.bib}
@@ -26,7 +40,7 @@
 	\begin{itemize}
 		\item<1-> There is a group of players with common goal.
 		\item<2-> Players can form \emph{coalitions}.
-		\item<3-> A formed coalition receives \emph{reward}.
+		\item<3-> The formed coalition receives some \emph{value}.
 	\end{itemize}
 	\vspace{2em}
 	\begin{definition}<4->[Cooperative Game]
@@ -37,57 +51,18 @@
 	\end{definition}
 \end{frame}
 
-\begin{frame}{Cooperative Game Theory}
-	In CGT, we try to answer the following:
-	\begin{itemize}[ ]
-		\item Which coalition should form?
-		\item How should the received reward be distributed?
-	\end{itemize}
-	\onslide<2->{ Battle plan: }
-	\begin{enumerate}
-		\item<3-> We assume the grand coalition $ N $ forms.
-		\item<4-> We suggest a distribution of $ \fce{v}{N} $ to the players.
-		\item<5-> We analyze whether this coalition is stable.
-	\end{enumerate}
-\end{frame}
-
-\begin{frame}{Payoff Vectors}
-	Distribution of $ \fce{v}{N} $ is formalised as a \emph{payoff vector}
-	\[
-		x \in \R^n.
-	\]
-
-\onslide<2->{ 	We require \emph{efficiency}, meaning \[ 
-		\sum_{i \in N}^{} x_i = \fce{v}{N}.
-	\]}
-
-	\onslide<3->{
-		We study \emph{solution concepts}---payoff vectors with given properties \[
-			f: \Gamma^n \to {\R^n} \qquad \text{or} \qquad f: \Gamma^n \to \pot {\R^n}.
-		\]
-	}
-\end{frame}
-
-\begin{frame}{Stability}
-	\begin{definition}<2->[Core]
-		The \emph{core} is a solution concept $ \mathcal{C}: \Gamma^n \to \pot {\R^n} $ such that, for an efficient $ x \in \R^n $, \[
-			x \in \mathcal{C}(N,v) \qquad \iff \qquad \left( \forall S \subseteq N \right)\quad \sum_{i \in S}^{} x_i \geq v(S).
-		\]
-	\end{definition}
-\end{frame}
-
 \begin{frame}{Fairness}
-	A fair solution concept should satisfy the following axioms:
+	A fair solution concept $ \fce{\phi}{v} \in \Rm n $ should satisfy the following axioms:
 	\begin{enumerate}
 		\item<2-> efficiency, i.e., $\sum_{i \in N}^{} \shapley[i]{v} = \fce{v}{N},$
-		\item<3-> symmetry, i.e., $  \forall i,j \in N, \forall S \subseteq N \setminus \left\{ i,j \right\} $\[
-				 \fce{v}{S \cup i} = \fce{v}{S \cup j} \quad\implies\quad \shapley[i]{v} = \shapley[j]{v} ,
+		\item<2-> symmetry, i.e., $  \forall i,j \in N,  $\[
+				\left( \forall S \subseteq N \setminus \left\{ i,j \right\} \right)\! \left( \fce{v}{S \cup i} = \fce{v}{S \cup j} \right) \quad\implies\quad \shapley[i]{v} = \shapley[j]{v} ,
 			\]
-		\item<4-> null player, i.e., $ \forall i \in N,  $
+		\item<2-> null player, i.e., $ \forall i \in N,  $
 			\[
 				\left(  \forall S \subseteq N \setminus \left\{ i \right\} \right)\left(  \fce{v}{S} = \fce{v}{S \cup i} \right) \quad \implies \quad \shapley[i]{v} = 0,
 			\]
-		\item<5-> additivity, i.e., $ \forall v,w \in \Gamma^ n, $
+		\item<2-> additivity, i.e., $ \forall v,w \in \Gamma^ n, $
 			\[
 				\shapley{v + w} = \shapley{v} + \shapley{w}.
 			\]
@@ -103,22 +78,6 @@
 
 	\begin{theorem}[Shapley]
 		The Shapley value $ \Shapley $ is the \alert<1>{unique} function satisfying all the axioms of fairness stated before.
-	\end{theorem}
-\end{frame}
-
-\begin{frame}{Further Questions to Ask}
-	\begin{itemize}[ ]
-		\item<2-> When is the core non-empty?
-		\item<3-> When is the Shapley value in the core?
-	\end{itemize}
-	\vspace{1em}
-	\begin{theorem}<4->
-		If the characteristic function is \emph{supermodular}, i.e., \[
-			\left( \forall S,T \subseteq N \right)\quad \fce{v}{S} + \fce{v}{T} \leq \fce{v}{S \cup T} + \fce{v}{S \cap T},
-		\]
-		then $ \mathcal{C}(v) $ is non-empty, and specifically, \[
-			\shapley v \in \mathcal{C}(v).
-		\]
 	\end{theorem}
 \end{frame}
 
@@ -214,23 +173,13 @@
 	\end{center}
 \end{frame}
 
-\section{Conclusion}
+\section{Thank You!}
+
+\appendix
 
 \begin{frame}[allowframebreaks]{References}
     \nocite{*}
     \printbibliography[heading=none]
 \end{frame}
-
-\begin{frame}{Acknowledgments}
-	This work was supported by CoSP, a project funded by European Union’s Horizon
-	2020 research and innovation programme, grant agreement No. 823748.
-
-	Thank you to DIMACS for organizing the REU 2024 program.
-
-	Thank you as well to David Sychrovský, Martin Černý, and Jakub Černý, who
-	were my co-authors on the paper which inspired this talk \citep{uradnik2024reducing}.
-\end{frame}
-
-\section{Thank You!}
 
 \end{document}
