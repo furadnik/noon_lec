@@ -23,6 +23,7 @@
 \usepackage{appendixnumberbeamer}
 
 \usepackage[natbib=true,style=authoryear,backend=bibtex,useprefix=true]{biblatex}
+\usepackage{qrcode}
 \addbibresource{bibliography.bib}
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
 
@@ -176,6 +177,18 @@
 \section{Thank You!}
 
 \appendix
+
+\begin{frame}{Link}
+	\begin{center}
+		\qrcode[height=3cm]{https://furadnik.github.io/projects/2024_reducing}
+
+		\vspace{3em}
+\texttt{uradnik@kam.mff.cuni.cz}
+\\
+\texttt{furadnik.github.io}
+	\end{center}
+	
+\end{frame}
 
 \begin{frame}[allowframebreaks]{References}
     \nocite{*}
